@@ -27,7 +27,7 @@ public sealed class TelemetryDtoMapperTests
     [Fact]
     public void GecerliKayit_ModeleDonusur()
     {
-        var result = TelemetryDtoMapper.Map(ValidDto(), Now);
+        var result = TelemetryDtoMapper.Map(ValidDto());
 
         Assert.True(result.IsSuccess);
 
@@ -45,7 +45,7 @@ public sealed class TelemetryDtoMapperTests
     [Fact]
     public void CapTime_UtcTarihineDonusur()
     {
-        var result = TelemetryDtoMapper.Map(ValidDto(), Now);
+        var result = TelemetryDtoMapper.Map(ValidDto());
 
         Assert.Equal(
             DateTimeOffset.FromUnixTimeSeconds(ValidCapTime),
@@ -62,7 +62,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.DeviceCode = deviceCode;
 
-        var result = TelemetryDtoMapper.Map(dto, Now);
+        var result = TelemetryDtoMapper.Map(dto);
 
         Assert.False(result.IsSuccess);
         Assert.NotNull(result.Error);
@@ -74,34 +74,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.CapTime = null;
 
-        Assert.False(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
-    }
-
-    [Fact]
-    public void GelecekTarihliKayit_Reddedilir()
-    {
-        var dto = ValidDto();
-        dto.CapTime = Now.AddMinutes(10).ToUnixTimeSeconds();
-
-        Assert.False(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
-    }
-
-    [Fact]
-    public void KucukIleriSapma_KabulEdilir()
-    {
-        var dto = ValidDto();
-        dto.CapTime = Now.AddMinutes(2).ToUnixTimeSeconds();
-
-        Assert.True(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
-    }
-
-    [Fact]
-    public void CokEskiKayit_Reddedilir()
-    {
-        var dto = ValidDto();
-        dto.CapTime = Now.AddHours(-30).ToUnixTimeSeconds();
-
-        Assert.False(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
+        Assert.False(TelemetryDtoMapper.Map(dto).IsSuccess);
     }
 
     [Theory]
@@ -114,7 +87,7 @@ public sealed class TelemetryDtoMapperTests
         dto.GpsY = gpsY;
         dto.GpsX = gpsX;
 
-        Assert.False(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
+        Assert.False(TelemetryDtoMapper.Map(dto).IsSuccess);
     }
 
     [Theory]
@@ -126,7 +99,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.GpsX = gpsX;
 
-        Assert.False(TelemetryDtoMapper.Map(dto, Now).IsSuccess);
+        Assert.False(TelemetryDtoMapper.Map(dto).IsSuccess);
     }
 
     [Theory]
@@ -138,7 +111,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.Speed = input;
 
-        Assert.Equal(expected, TelemetryDtoMapper.Map(dto, Now).Value!.Speed);
+        Assert.Equal(expected, TelemetryDtoMapper.Map(dto).Value!.Speed);
     }
 
     [Theory]
@@ -152,7 +125,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.Angle = input;
 
-        Assert.Equal(expected, TelemetryDtoMapper.Map(dto, Now).Value!.Angle);
+        Assert.Equal(expected, TelemetryDtoMapper.Map(dto).Value!.Angle);
     }
 
     [Theory]
@@ -169,7 +142,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.Direction = input;
 
-        Assert.Equal(expected, TelemetryDtoMapper.Map(dto, Now).Value!.Direction);
+        Assert.Equal(expected, TelemetryDtoMapper.Map(dto).Value!.Direction);
     }
 
     [Theory]
@@ -182,7 +155,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.IsOnline = input;
 
-        Assert.Equal(expected, TelemetryDtoMapper.Map(dto, Now).Value!.IsOnline);
+        Assert.Equal(expected, TelemetryDtoMapper.Map(dto).Value!.IsOnline);
     }
 
     [Fact]
@@ -191,7 +164,7 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.DeviceName = "   ";
 
-        Assert.Null(TelemetryDtoMapper.Map(dto, Now).Value!.DeviceName);
+        Assert.Null(TelemetryDtoMapper.Map(dto).Value!.DeviceName);
     }
 
     [Fact]
@@ -200,6 +173,6 @@ public sealed class TelemetryDtoMapperTests
         var dto = ValidDto();
         dto.DeviceCode = "  1000691  ";
 
-        Assert.Equal("1000691", TelemetryDtoMapper.Map(dto, Now).Value!.DeviceCode);
+        Assert.Equal("1000691", TelemetryDtoMapper.Map(dto).Value!.DeviceCode);
     }
 }

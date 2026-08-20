@@ -10,10 +10,7 @@ public static class TelemetryDtoMapper
     private const double MinLongitude = -180;
     private const double MaxLongitude = 180;
 
-    private static readonly TimeSpan MaxFutureSkew = TimeSpan.FromMinutes(5);
-    private static readonly TimeSpan MaxAge = TimeSpan.FromHours(24);
-
-    public static MappingResult Map(TelemetryItemDto dto, DateTimeOffset now)
+    public static MappingResult Map(TelemetryItemDto dto)
     {
         if (string.IsNullOrWhiteSpace(dto.DeviceCode))
         {
@@ -26,16 +23,6 @@ public static class TelemetryDtoMapper
         }
 
         var dataDate = DateTimeOffset.FromUnixTimeSeconds(capTime);
-
-        if (dataDate > now + MaxFutureSkew)
-        {
-            return MappingResult.Failure("capTime gelecekte");
-        }
-
-        if (dataDate < now - MaxAge)
-        {
-            return MappingResult.Failure("capTime çok eski");
-        }
 
         var latitude = dto.GpsY;
         var longitude = dto.GpsX;
