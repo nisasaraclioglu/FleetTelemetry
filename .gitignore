@@ -484,3 +484,5 @@ $RECYCLE.BIN/
 # Runtime çıktıları
 /FleetTelemetry.Host/bin/**/outbox/
 *.corrupt
+
+appsettings.Development.json

@@ -130,9 +130,16 @@ public sealed class TelemetryDispatcher : ITelemetryDispatcher
     {
         var connection = _registry.GetOrCreate(deviceCode);
         var lastOutcome = SendOutcome.Sent;
+        var sentInThisTick = 0;
 
-        while (_queue.TryDequeue(deviceCode, out var item))
+        while (sentInThisTick < _options.MaxMessagesPerDevicePerTick
+               && _queue.TryDequeue(deviceCode, out var item))
         {
+            if (sentInThisTick > 0 && _options.DelayBetweenMessages > TimeSpan.Zero)
+            {
+                await Task.Delay(_options.DelayBetweenMessages, _timeProvider, ct);
+            }
+
             lastOutcome = await connection.SendAsync(item, ct);
 
             if (lastOutcome != SendOutcome.Sent)
@@ -140,6 +147,8 @@ public sealed class TelemetryDispatcher : ITelemetryDispatcher
                 _queue.Requeue(deviceCode, item);
                 break;
             }
+
+            sentInThisTick++;
         }
 
         return lastOutcome;
