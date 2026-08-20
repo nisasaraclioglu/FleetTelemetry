@@ -482,5 +482,5 @@ $RECYCLE.BIN/
 *.swp
 
 # Runtime çıktıları
-outbox/
+/FleetTelemetry.Host/bin/**/outbox/
 *.corrupt
