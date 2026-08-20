@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="FleetTelemetry.Application/FleetTelemetry.Application.csproj" />
+  <Project Path="FleetTelemetry.Domain/FleetTelemetry.Domain.csproj" />
+  <Project Path="FleetTelemetry.Host/FleetTelemetry.Host.csproj" />
+  <Project Path="FleetTelemetry.Infrastructure/FleetTelemetry.Infrastructure.csproj" />
+  <Project Path="FleetTelemetry.IntegrationTests/FleetTelemetry.IntegrationTests.csproj" />
+  <Project Path="FleetTelemetry.UnitTests/FleetTelemetry.UnitTests.csproj" />
+</Solution>
