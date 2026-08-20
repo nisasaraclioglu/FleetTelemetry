@@ -38,10 +38,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeviceConnectionRegistry, DeviceConnectionRegistry>();
 
         services.AddSingleton<FileOutboxStore>();
-        services.AddSingleton<NullOutboxStore>();
+        services.AddSingleton<DatabaseOutboxStore>();
 
         services.AddSingleton<ResilientOutboxStore>(provider => new ResilientOutboxStore(
-            provider.GetRequiredService<NullOutboxStore>(),
+            provider.GetRequiredService<DatabaseOutboxStore>(),
             provider.GetRequiredService<FileOutboxStore>(),
             provider.GetRequiredService<Microsoft.Extensions.Options.IOptions<PersistenceOptions>>(),
             provider.GetRequiredService<Microsoft.Extensions.Logging.ILogger<ResilientOutboxStore>>()));

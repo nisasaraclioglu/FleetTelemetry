@@ -72,9 +72,10 @@ public sealed class OutboxSnapshotWorker : BackgroundService
             if (recordCount > 0)
             {
                 _logger.LogInformation(
-                    "Snapshot: cihaz={DeviceCount} kayıt={RecordCount} süre={ElapsedMs}ms",
+                    "Snapshot: cihaz={DeviceCount} kayit={RecordCount} hedef={Target} süre={ElapsedMs}ms",
                     deviceCount,
                     recordCount,
+                    _writer.LastWriteUsedFallback ? "Disk" : "Veritabani",
                     stopwatch.ElapsedMilliseconds);
             }
         }

@@ -2,6 +2,9 @@
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
   </Folder>
+  <Folder Name="/Solution Items/db/">
+    <File Path="OutboxTelemetry.sql" />
+  </Folder>
   <Project Path="FleetTelemetry.Application/FleetTelemetry.Application.csproj" />
   <Project Path="FleetTelemetry.Domain/FleetTelemetry.Domain.csproj" />
   <Project Path="FleetTelemetry.Host/FleetTelemetry.Host.csproj" />

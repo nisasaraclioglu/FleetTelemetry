@@ -11,4 +11,8 @@ public sealed class PersistenceOptions
     public string FileFallbackDirectory { get; set; } = "outbox";
 
     public bool SnapshotOnShutdown { get; set; } = true;
+
+    public string ConnectionString { get; set; } = string.Empty;
+
+    public string TableName { get; set; } = "dbo.OutboxTelemetry";
 }
